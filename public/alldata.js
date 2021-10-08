@@ -1,10 +1,18 @@
 function AllData() {
-    const ctx = React.useContext(UserContext)
-    return (
-        <>
-        <h1>AllData Component</h1>
-        {JSON.stringify(ctx)}
-        </>
-      
-    )
+    const [data, setData] = React.useState('');
+
+    React.useEffect(() => {
+        // Fetch all accounts from API
+        fetch('/account/all')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setData(JSON.stringify(data))
+            })
+    }, []);
+
+    return (<>
+        <h1>AllData in Database-Store</h1>
+        {data}
+    </>)
 }

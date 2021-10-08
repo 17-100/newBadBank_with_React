@@ -23,7 +23,7 @@ app.get('/account/all', function(req, res) {
         .then((docs) => {
             console.log(docs);
             res.send(docs);
-        })
+        });
 })
 
 

@@ -30,7 +30,7 @@ function all() {
             .find({})
             .toArray(function(err, docs) {
                 err ? reject(err) : resolve(docs);
-            });
+            })
     })
 }
 
