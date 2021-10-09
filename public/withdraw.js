@@ -32,16 +32,35 @@ function ShowWithdrawal(props) {
 function ChooseWithdrawalAccount(props) {
     const [mail, setMail] = React.useState('');
     const [deposit, setDeposit] = React.useState('');
-    const ctx = React.useContext(UserContext)
+    /* const ctx = React.useContext(UserContext) */
 
     function handle() {
+        // Get back newBalance
+        function getNewBalance() {
+            return fetch(`/account/${mail}/`)
+                    .then(response => response.json())
+                    .then(data => Number(data[0].balance) - Number(deposit));
+        } 
+        
+        async function invoke() {
+            var newBalanceNumber = await getNewBalance();
+            var newBalance = newBalanceNumber.toString();
+            props.setShow(false);
+            return fetch(`/account/${mail}/${newBalance}`)
+                    .then(data => console.log(`The new Balance of the account with address ${mail} amounts to ${newBalance}`));
+        }
+
+        invoke();
+    }
+
+    /* function handle() {
         console.log(mail, deposit)
         var user = ctx.users.find(x => x.email === mail);
         var userBalance = Number(user.balance)
         var newBalance = userBalance -= Number(deposit);
         user.balance = newBalance;
         props.setShow(false);
-    }
+    } */
 
     return(<>
         Email<br/>

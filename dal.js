@@ -31,7 +31,25 @@ function all() {
             .toArray(function(err, docs) {
                 err ? reject(err) : resolve(docs);
             })
-    })
+    });
 }
 
-module.exports = {create, all};
+function specific(mail) {
+    return new Promise((resolve, reject) => {
+        const customer = db
+            .collection('users')
+            .find({"email":`${mail}`})
+            .toArray(function(err, docs) {
+                err ? reject(err) : resolve(docs)
+            })
+    });
+}
+
+function update(mail, newBalance) {
+    var myQuery = {"email":`${mail}`};
+    var newValue = {$set:{"balance":`${newBalance}`}};
+    db  .collection('users')
+        .updateOne(myQuery, newValue)
+}
+
+module.exports = {create, all, specific, update};

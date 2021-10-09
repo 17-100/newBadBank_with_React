@@ -16,12 +16,15 @@ function Balance() {
 function ShowBalance(props) {
     const [mail, setMail] = React.useState('');
     const [balance, setBalance] = React.useState('');
-    const ctx = React.useContext(UserContext)
 
     function handle() {
-        console.log(mail, balance)
-        var user = ctx.users.find(x => x.email === mail);
-        setBalance(user.balance)
+        fetch(`/account/${mail}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setBalance(JSON.stringify(data[0].balance))
+            });
+        /* setBalance(data.balance) */
     }
 
     return(<>

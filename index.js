@@ -26,6 +26,26 @@ app.get('/account/all', function(req, res) {
         });
 })
 
+// Specific Account
+app.get('/account/:email', function (req, res) {
+    var mail = req.params.email
+    // dal-function
+    dal.specific(mail)
+        .then((doc) =>{
+            console.log(doc);
+            res.send(doc);
+        })
+})
+
+// Update balance on specific account
+app.get('/account/:email/:newBalance', function (req, res) {
+    var mail = req.params.email;
+    var newBalance = req.params.newBalance;
+    // dal-function
+    dal.update(mail, newBalance)
+    console.log(`${newBalance} € added to following account: ${mail}`);
+    res.send(`${newBalance} € added to following account: ${mail}`)
+})
 
 // Run application
 var PORT = 3000;
