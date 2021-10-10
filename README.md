@@ -10,7 +10,7 @@ To start the application install npm, and invoke "npm install" so all needed dep
 
 #### Screenshots
 
-![Alt text](/relative/path/to/badbank.png?raw=true "Optional Title")
+![Alt text](./to/badbank.png?raw=true "Optional Title")
 
 #### Technology used
 
