@@ -1,6 +1,7 @@
 // Data Abstraction Layer
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017';
+//const url = 'mongodb://localhost:27017';
+const url = "mongodb+srv://oezge:220991@badbank.a8b6x.mongodb.net/BadBank?retryWrites=true&w=majority"
 let db = null;
 
 // Connect to mongo

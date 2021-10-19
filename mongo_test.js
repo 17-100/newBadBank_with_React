@@ -1,10 +1,10 @@
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
-const url = 'mongodb://localhost:27017';
-const uri = "mongodb+srv://oezge:220991@badbank.a8b6x.mongodb.net/BadBank?retryWrites=true&w=majority";
+//const url = 'mongodb://localhost:27017';
+const url = "mongodb+srv://oezge:220991@badbank.a8b6x.mongodb.net/BadBank?retryWrites=true&w=majority";
 
 // Run database + create collection + insert user
-MongoClient.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, client) {
+MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, client) {
     console.log('Connected!');
 
     // Set database name
