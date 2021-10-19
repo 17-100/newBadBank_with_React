@@ -19,7 +19,7 @@ function Login() {
 
 function CreateMsg(props) {
     return (<>
-    <img src="user.png"></img>
+    <img src="user.png" className="img-fluid" alt="Responsive image"></img>
         <h5>Success! You are logged in.</h5>
         <h5>This is your profile page my friend!</h5>
         <button type="submit" 
