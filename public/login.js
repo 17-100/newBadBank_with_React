@@ -19,7 +19,9 @@ function Login() {
 
 function CreateMsg(props) {
     return (<>
+    <img src="user.png"></img>
         <h5>Success! You are logged in.</h5>
+        <h5>This is your profile page my friend!</h5>
         <button type="submit" 
                 className="btn btn-light" 
                 onClick={() => props.setShow(true)}

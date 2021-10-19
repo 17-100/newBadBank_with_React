@@ -38,9 +38,13 @@ app.get('/account/:email', function (req, res) {
 })
 
 // Login
-app.get('account/login/:email/:password', function(req, res) {
-    var mail = req.params.email;
-    var pw = req.params.password;
+app.post('account/login/:email/:password', function(req, res) {
+    const {email, password} = req.params;
+    dal.specific(email)
+    .then((user) => {
+        console.log(`User ${user} exists in database`);
+        res.send(user);
+    })
 })
 
 // Update balance on specific account
