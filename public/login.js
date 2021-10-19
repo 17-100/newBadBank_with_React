@@ -29,13 +29,12 @@ function CreateMsg(props) {
 }
 
 function CreateForm(props) {
-    const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
     function handle() {
-        console.log(name, email, password);
-        const url = `/account/create/${name}/${email}/${password}`;
+        console.log(email, password);
+        const url = `/account/login/${email}/${password}`;
         (async() => {
             var res = await fetch(url);
             var data = res.json();
@@ -45,14 +44,6 @@ function CreateForm(props) {
     }
 
     return (<>
-        Name<br/>
-        <input  type="input"
-                className="form-control"
-                placeholder="Enter name"
-                value={name}
-                onChange={e => setName(e.currentTarget.value)}
-        />
-        <br/>
 
         Email address<br/>
         <input  type="input"
@@ -74,7 +65,7 @@ function CreateForm(props) {
         <button type="submit"
                 className="btn btn-light"
                 onClick={handle}
-        >Create Account
+        >Login
         </button>
     </>)
 }
