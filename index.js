@@ -48,7 +48,7 @@ app.get('/account/:email/:newBalance', function (req, res) {
 })
 
 // Run application
-var PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Running on port:${PORT}`);
+var port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Running on port:${port}`);
 });
