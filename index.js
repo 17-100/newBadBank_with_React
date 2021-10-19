@@ -37,6 +37,12 @@ app.get('/account/:email', function (req, res) {
         })
 })
 
+// Login
+app.get('account/login/:email/:password', function(req, res) {
+    var mail = req.params.email;
+    var pw = req.params.password;
+})
+
 // Update balance on specific account
 app.get('/account/:email/:newBalance', function (req, res) {
     var mail = req.params.email;

@@ -19,11 +19,11 @@ function Login() {
 
 function CreateMsg(props) {
     return (<>
-        <h5>Success</h5>
+        <h5>Success! You are logged in.</h5>
         <button type="submit" 
                 className="btn btn-light" 
                 onClick={() => props.setShow(true)}
-        >Add another Account
+        >LogOut
         </button>
     </>)
 }
