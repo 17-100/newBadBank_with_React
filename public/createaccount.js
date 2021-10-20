@@ -12,7 +12,6 @@ function CreateAccount() {
                     : 
                     <CreateMsg setShow={setShow}/>    
                 }
-            text="create your account olum"
         />
     )
 }

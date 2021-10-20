@@ -5,18 +5,18 @@ function Login() {
     return (
         <Card
             bgcolor="primary"
-            header="Create Account"
+            header="LogIn"
             status={status}
             body={show ? 
-                    <CreateForm setShow={setShow}/> 
+                    <CreateLoginForm setShow={setShow}/> 
                     : 
-                    <CreateMsg setShow={setShow}/>    
+                    <CreateLoginMsg setShow={setShow}/>    
                 }
         />
     )
 }
 
-function CreateMsg(props) {
+function CreateLoginMsg(props) {
     return (<>
     <img src="user.png" className="img-fluid" alt="Responsive image"></img>
         <h5>Success! You are logged in.</h5>
@@ -29,7 +29,7 @@ function CreateMsg(props) {
     </>)
 }
 
-function CreateForm(props) {
+function CreateLoginForm(props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
