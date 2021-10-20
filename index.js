@@ -6,6 +6,7 @@ var dal     = require('./dal.js')
 const session = require('express-session');
 
 
+
 // Used to serve static files from public directory
 app.use(express.static('public'));
 app.use(cors());
@@ -25,8 +26,9 @@ app.use(
 
 // Create user account
 app.get('/account/create/:name/:email/:password', function (req, res) {
+    var {name, email, password} = req.params;
     // Else Create user
-    dal.create(req.params.name, req.params.email, req.params.password)
+    dal.create(name, email, password)
         .then((user) => {
             console.log(user);
             res.send(user);
