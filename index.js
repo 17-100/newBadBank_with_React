@@ -38,7 +38,11 @@ app.get('/account/:email', function (req, res) {
 })
 
 // Login
-app.post('account/login/:email/:password', function(req, res) {
+app.post('account/login/:email/:password', function(req, res, next) {
+    // Session
+    console.log('SESSION =====> ', req.session)
+
+    // Find user by email
     const {email, password} = req.params;
     dal.specific(email)
     .then((user) => {
