@@ -78,13 +78,13 @@ app.post('account/login/:email/:password', function(req, res, next) {
     dal.specific(email)
     .then((user) => {
         console.log(`User ${user} exists in database`);
-        if (bcryptjs.compareSync(pw, user.password)) {
+        /* if (bcryptjs.compareSync(pw, user.password)) {
             console.log(`${user.name} logged in!`)
           }
           else {
             console.log("wrong login data")
           }
-
+ */
     })
 })
 
