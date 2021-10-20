@@ -74,9 +74,10 @@ app.post('account/login/:email/:password', function(req, res, next) {
     const {email, password} = req.params;
     dal.specific(email)
     .then((user) => {
-        if (bcryptjs.compareSync(password, user.password)) {
+        /* if (bcryptjs.compareSync(password, user.password)) {
             res.send(user)
-        }
+        } */
+        res.send(user)
     })
 })
 
