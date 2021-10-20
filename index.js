@@ -30,22 +30,22 @@ app.use(
 // Create user account
 app.get('/account/create/:name/:email/:password', function (req, res) {
     var {name, email, password} = req.params;
-    var encryptedPassword;
 
     bcryptjs
     .genSalt(saltRounds)
     .then(salt => bcryptjs.hash(password, salt))
     .then(hashedPassword => {
-        encryptedPassword = hashedPassword;
-    })
-    .catch(error => next(error));
-    
-    // Else Create user
-    dal.create(name, email, password)
+        
+        // Else Create user
+        dal.create(name, email, hashedPassword)
         .then((user) => {
             console.log(user);
             res.send(user);
         });
+    })
+    .catch(error => next(error));
+    
+    
 })
 
 // All Accounts
