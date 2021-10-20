@@ -69,15 +69,18 @@ app.get('/account/:email', function (req, res) {
 })
 
 // Login
-app.post('account/login/:email/:password', function(req, res, next) {
+app.get('account/login/:email/:password', function(req, res, next) {
     // Find user by email
-    const {email, password} = req.params;
+    var email = req.params.email;
+    var password = req.params.password;
+
     dal.specific(email)
-    .then((user) => {
+        .then((user) => {
         /* if (bcryptjs.compareSync(password, user.password)) {
             res.send(user)
         } */
-        res.send(user)
+        res.send(user);
+        console.log(user);
     })
 })
 
