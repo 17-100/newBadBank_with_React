@@ -5,23 +5,23 @@ var dal     = require('./dal.js')
 // require session
 const session = require('express-session');
 
-// Use session
-app.use(
-  session({
-    secret: process.env.SESS_SECRET,
-    resave: true,
-    saveUninitialized: false,
-    cookie: {
-      sameSite: 'none',
-      httpOnly: true,
-      maxAge: 60000 // 60 * 1000 ms === 1 min
-    }
-  })
-);
 
 // Used to serve static files from public directory
 app.use(express.static('public'));
 app.use(cors());
+// Use session
+app.use(
+    session({
+      secret: 'super session secret',
+      resave: true,
+      saveUninitialized: false,
+      cookie: {
+        sameSite: 'none',
+        httpOnly: true,
+        maxAge: 60000 // 60 * 1000 ms === 1 min
+      }
+    })
+  );
 
 // Create user account
 app.get('/account/create/:name/:email/:password', function (req, res) {
