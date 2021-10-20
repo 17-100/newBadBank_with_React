@@ -35,7 +35,7 @@ app.get('/account/create/:name/:email/:password', function (req, res) {
     .genSalt(saltRounds)
     .then(salt => bcryptjs.hash(password, salt))
     .then(hashedPassword => {
-        
+
         // Else Create user
         dal.create(name, email, hashedPassword)
         .then((user) => {
@@ -74,11 +74,18 @@ app.post('account/login/:email/:password', function(req, res, next) {
     console.log('SESSION =====> ', req.session)
 
     // Find user by email
-    const {email, password} = req.params;
+    const {email, pw} = req.params;
     dal.specific(email)
     .then((user) => {
         console.log(`User ${user} exists in database`);
-        res.send(user);
+        if (bcryptjs.compareSync(pw, user.password)) {
+            res.send(user);
+            console.log(`${user} logged in!`)
+          }
+          else {
+            console.log("wrong login data")
+          }
+
     })
 })
 
