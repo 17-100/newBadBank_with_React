@@ -79,8 +79,7 @@ app.post('account/login/:email/:password', function(req, res, next) {
     .then((user) => {
         console.log(`User ${user} exists in database`);
         if (bcryptjs.compareSync(pw, user.password)) {
-            res.send(user);
-            console.log(`${user} logged in!`)
+            console.log(`${user.name} logged in!`)
           }
           else {
             console.log("wrong login data")
