@@ -70,21 +70,13 @@ app.get('/account/:email', function (req, res) {
 
 // Login
 app.post('account/login/:email/:password', function(req, res, next) {
-    // Session
-    console.log('SESSION =====> ', req.session)
-
     // Find user by email
-    const {email, pw} = req.params;
+    const {email, password} = req.params;
     dal.specific(email)
     .then((user) => {
-        console.log(`User ${user} exists in database`);
-        /* if (bcryptjs.compareSync(pw, user.password)) {
-            console.log(`${user.name} logged in!`)
-          }
-          else {
-            console.log("wrong login data")
-          }
- */
+        if (bcryptjs.compareSync(password, user.password)) {
+            res.send(user)
+        }
     })
 })
 
