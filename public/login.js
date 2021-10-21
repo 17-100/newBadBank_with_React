@@ -34,14 +34,20 @@ function CreateLoginForm(props) {
     const [password, setPassword] = React.useState('');
 
     function handle() {
-        console.log(email, password);
-        const url = `/account/login/${email}/${password}`;
-        (async() => {
-            var res = await fetch(url);
-            var data = res.json();
-            console.log(data);
-        })();
-        props.setShow(false);
+        function getLoggedInUser() {
+            return fetch(`/account/${mail}/`)
+                    .then(response => response.json())
+                    .then(data => data[0].email);
+        } 
+
+        async function invoke() {
+            var email = await getLoggedInUser();
+            var user = email.toString()
+            props.setShow(false);
+            console.log("tried to log in as: " + user) ;
+        }
+
+        invoke();
     }
 
     return (<>
