@@ -37,7 +37,7 @@ function CreateLoginForm(props) {
         function getLoggedInUser() {
             return fetch(`/account/${email}/`)
                     .then(response => response.json())
-                    .then(data => console.log("tried to login as: " + data[0]));
+                    .then(data => console.log("tried to login as: " + data[0].email));
         } 
 
         
