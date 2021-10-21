@@ -37,17 +37,12 @@ function CreateLoginForm(props) {
         function getLoggedInUser() {
             return fetch(`/account/${mail}/`)
                     .then(response => response.json())
-                    .then(data => data[0].email);
+                    .then(data => console.log("tried to login as: " + data[0]));
         } 
 
-        async function invoke() {
-            var email = await getLoggedInUser();
-            var user = email.toString()
-            props.setShow(false);
-            console.log("tried to log in as: " + user) ;
-        }
+        
 
-        invoke();
+        getLoggedInUser();
     }
 
     return (<>
