@@ -1,6 +1,10 @@
+
+
 function Login() {
+    // Encrypted password requirements
     const [show, setShow] = React.useState(true);
     const [status, setStatus] = React.useState(''); 
+    
 
     return (
         <Card
@@ -32,16 +36,26 @@ function CreateLoginMsg(props) {
 function CreateLoginForm(props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-
+    
     function handle() {
         function getLoggedInUser() {
+            console.log("typed in password: " + password)
             return fetch(`/account/${email}/`)
                     .then(response => response.json())
-                    .then(data => console.log("tried to login as: " + data[0].email));
+                    .then(data => {
+                        console.log("email: ", data[0].email)
+                        console.log("password: ", data[0].password); 
+                        bcrypt.compare(password, data[0].password, (err, res) => {
+                            if(res) {
+                                console.log("password correct!");
+                                props.setShow(false);
+                            } else {
+                                console.log("password incorrect! Try again.")
+                            }
+                        })
+                    }
+            )
         } 
-
-        
-
         getLoggedInUser();
     }
 

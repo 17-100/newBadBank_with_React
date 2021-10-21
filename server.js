@@ -59,8 +59,8 @@ app.get('/account/all', function(req, res) {
 
 // Specific Account
 app.get('/account/:email', function (req, res) {
-    var mail = req.params.email
-    // dal-function
+    var mail = req.params.email;
+    
     dal.specific(mail)
         .then((doc) =>{
             console.log(doc);
@@ -68,18 +68,18 @@ app.get('/account/:email', function (req, res) {
         })
 })
 
-// Login
-app.get('account/login/:email/:password', function(req, res, next) {
-    // Find user by email
+// Login Account
+app.get('/account/:email/:password', function (req, res) {
     var mail = req.params.email;
-    var password = req.params.password;
-
+    var pw = req.params.password;
+    
     dal.specific(mail)
-        .then((user) => {
-            res.send(user);
-            console.log("returns user: " + user);
+        .then((doc) =>{
+            console.log(doc);
+            res.send(doc);
         })
 })
+
 
 // Update balance on specific account
 app.get('/account/:email/:newBalance', function (req, res) {
@@ -93,6 +93,7 @@ app.get('/account/:email/:newBalance', function (req, res) {
 
 // Run application
 var port = process.env.PORT || 3000;
+// var port = 3000;
 app.listen(port, () => {
     console.log(`Running on port:${port}`);
 });

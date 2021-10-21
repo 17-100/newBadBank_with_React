@@ -2,6 +2,9 @@ const Route = ReactRouterDOM.Route;
 const Link = ReactRouterDOM.Link;
 const HashRouter = ReactRouterDOM.HashRouter;
 const UserContext = React.createContext(null);
+const bcrypt = dcodeIO.bcrypt;
+var salt = bcrypt.genSaltSync(10);
+var hash = bcrypt.hashSync("B4c0/\/", salt);
 
 // Shared Card-element which can be used by all components if needed
 function Card(props) {
