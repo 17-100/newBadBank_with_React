@@ -71,17 +71,14 @@ app.get('/account/:email', function (req, res) {
 // Login
 app.get('account/login/:email/:password', function(req, res, next) {
     // Find user by email
-    var email = req.params.email;
+    var mail = req.params.email;
     var password = req.params.password;
 
-    dal.specific(email)
+    dal.specific(mail)
         .then((user) => {
-        /* if (bcryptjs.compareSync(password, user.password)) {
-            res.send(user)
-        } */
-        res.send(user);
-        console.log(user);
-    })
+            res.send(user);
+            console.log("returns user: " + user);
+        })
 })
 
 // Update balance on specific account
