@@ -18,7 +18,7 @@ function ShowBalance(props) {
     const [balance, setBalance] = React.useState('');
 
     function handle() {
-        fetch(`/account/${mail}`)
+        fetch(`/account/find/${mail}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);

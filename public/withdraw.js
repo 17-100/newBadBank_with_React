@@ -37,7 +37,7 @@ function ChooseWithdrawalAccount(props) {
     function handle() {
         // Get back newBalance
         function getNewBalance() {
-            return fetch(`/account/${mail}/`)
+            return fetch(`/account/find/${mail}/`)
                     .then(response => response.json())
                     .then(data => Number(data[0].balance) - Number(deposit));
         } 
@@ -46,7 +46,7 @@ function ChooseWithdrawalAccount(props) {
             var newBalanceNumber = await getNewBalance();
             var newBalance = newBalanceNumber.toString();
             props.setShow(false);
-            return fetch(`/account/${mail}/${newBalance}`)
+            return fetch(`/account/update/${mail}/${newBalance}`)
                     .then(data => console.log(`The new Balance of the account with address ${mail} amounts to ${newBalance}`));
         }
 

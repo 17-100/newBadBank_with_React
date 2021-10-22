@@ -3,6 +3,9 @@ const MongoClient = require('mongodb').MongoClient;
 //const url = 'mongodb://localhost:27017';
 const url = "mongodb+srv://oezge:220991@badbank.a8b6x.mongodb.net/BadBank?retryWrites=true&w=majority"
 let db = null;
+// Encrypted password requirements
+const bcryptjs = require('bcryptjs');
+const saltRounds = 10;
 
 
 // Connect to mongo
@@ -54,4 +57,20 @@ function update(mail, newBalance) {
         .updateOne(myQuery, newValue)
 }
 
-module.exports = {create, all, specific, update};
+function checkPassword(email, password) {
+    
+    var enteredPW = password;
+    var user = new Promise((resolve, reject) => {
+        const customer = db
+            .collection('users')
+            .find({"email":`${email}`})
+            .toArray(function(err, docs) {
+                err ? reject(err) : resolve(docs)
+            })
+    });
+    var databasePW = user.then(userdata => userdata[0].password);
+    return databasePW;
+
+}
+
+module.exports = {create, all, specific, update, checkPassword};

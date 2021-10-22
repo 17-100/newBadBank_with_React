@@ -58,31 +58,38 @@ app.get('/account/all', function(req, res) {
 })
 
 // Specific Account
-app.get('/account/:email', function (req, res) {
+app.get('/account/find/:email', function (req, res) {
     var mail = req.params.email;
     
     dal.specific(mail)
         .then((doc) =>{
             console.log(doc);
-            res.send(doc);
+            res.send(doc)
         })
+        
 })
 
 // Login Account
-app.get('/account/:email/:password', function (req, res) {
+app.get('/account/login/:email/:password', function (req, res) {
+    
     var mail = req.params.email;
     var pw = req.params.password;
-    
-    dal.specific(mail)
+    dal.checkPassword(mail, pw)
         .then((doc) =>{
-            console.log(doc);
-            res.send(doc);
+            bcryptjs.compare(pw, doc, (err, response) => {
+                if(response) {
+                    res.send([{response: response}]);
+                }
+                if (!response) {
+                    res.send([{response: response}])
+                } 
+            }); 
         })
 })
 
 
 // Update balance on specific account
-app.get('/account/:email/:newBalance', function (req, res) {
+app.get('/account/update/:email/:newBalance', function (req, res) {
     var mail = req.params.email;
     var newBalance = req.params.newBalance;
     // dal-function
@@ -93,7 +100,7 @@ app.get('/account/:email/:newBalance', function (req, res) {
 
 // Run application
 var port = process.env.PORT || 3000;
-// var port = 3000;
+//var port = 3000;
 app.listen(port, () => {
     console.log(`Running on port:${port}`);
 });

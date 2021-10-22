@@ -12,15 +12,15 @@ function Login() {
             header="LogIn"
             status={status}
             body={show ? 
-                    <CreateLoginForm setShow={setShow}/> 
+                    <LogInForm setShow={setShow}/> 
                     : 
-                    <CreateLoginMsg setShow={setShow}/>    
+                    <LoggedInMsg setShow={setShow}/>    
                 }
         />
     )
 }
 
-function CreateLoginMsg(props) {
+function LoggedInMsg(props) {
     return (<>
     <img src="user.png" className="img-fluid" alt="Responsive image"></img>
         <h5>Success! You are logged in.</h5>
@@ -33,28 +33,24 @@ function CreateLoginMsg(props) {
     </>)
 }
 
-function CreateLoginForm(props) {
+function LogInForm(props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     
     function handle() {
         function getLoggedInUser() {
-            console.log("typed in password: " + password)
-            return fetch(`/account/${email}/`)
+            return fetch(`/account/login/${email}/${password}`)
                     .then(response => response.json())
                     .then(data => {
-                        console.log("email: ", data[0].email)
-                        console.log("password: ", data[0].password); 
-                        bcrypt.compare(password, data[0].password, (err, res) => {
-                            if(res) {
-                                console.log("password correct!");
-                                props.setShow(false);
-                            } else {
-                                console.log("password incorrect! Try again.")
-                            }
-                        })
-                    }
-            )
+                        if (data[0].response) {
+                            console.log("Password Correct! You are Logged In Now");
+                            props.setShow(false);
+                        }
+                        if (!data[0].response) {
+                            console.log("Password incorrect! Try again.")
+                        }
+                    })
+                    
         } 
         getLoggedInUser();
     }
