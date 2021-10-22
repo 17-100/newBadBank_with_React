@@ -3,20 +3,23 @@ var app     = express();
 var cors    = require('cors');
 var dal     = require('./dal.js')
 
+// utilize configs/session.config.js
+const session = require('express-session');
+
 // Encrypted password requirements
 const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
 
-// require session
-const session = require('express-session');
-
 // Used to serve static files from public directory
 app.use(express.static('public'));
 app.use(cors());
-// Use session
+
+// Use Express-Session
+// use session
+SESS_SECRET = 'super session secret'
 app.use(
     session({
-      secret: 'super session secret',
+      secret: SESS_SECRET,
       resave: true,
       saveUninitialized: false,
       cookie: {
@@ -27,8 +30,10 @@ app.use(
     })
   );
 
+
+
 // Create user account
-app.get('/account/create/:name/:email/:password', function (req, res) {
+app.post('/account/create/:name/:email/:password', function (req, res) {
     var {name, email, password} = req.params;
 
     bcryptjs
@@ -71,20 +76,26 @@ app.get('/account/find/:email', function (req, res) {
 
 // Login Account
 app.get('/account/login/:email/:password', function (req, res) {
-    
     var mail = req.params.email;
     var pw = req.params.password;
     dal.checkPassword(mail, pw)
-        .then((doc) =>{
-            bcryptjs.compare(pw, doc, (err, response) => {
+        .then((user) =>{
+            bcryptjs.compare(pw, user[0].password, (err, response) => {
                 if(response) {
-                    res.send([{response: response}]);
+                    console.log("currently logged in user: " + user[0].name)
+                    res.send([{response: response}]); 
+                    req.session.currentUser = user[0].name;
+                    console.log('SESSION =====> ', req.session);
                 }
                 if (!response) {
                     res.send([{response: response}])
                 } 
             }); 
-        })
+            
+    })
+    
+    
+   
 })
 
 
@@ -96,6 +107,11 @@ app.get('/account/update/:email/:newBalance', function (req, res) {
     dal.update(mail, newBalance)
     console.log(`${newBalance} € added to following account: ${mail}`);
     res.send(`${newBalance} € added to following account: ${mail}`)
+})
+
+// Check who's online
+app.get('/userProfile', (req, res) => {
+    res.send(`<h1>Hello ${req.session.currentUser}</h1>`);
 })
 
 // Run application
