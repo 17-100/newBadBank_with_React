@@ -38,7 +38,7 @@ function CreateForm(props) {
         (async() => {
             var res = await fetch(url);
             var data = res.json();
-            console.log(data);
+            data.then(gotback => console.log(gotback.response))
         })();
         props.setShow(false);
     }

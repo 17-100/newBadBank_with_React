@@ -33,19 +33,17 @@ app.use(
 
 
 // Create user account
-app.post('/account/create/:name/:email/:password', function (req, res) {
+app.get('/account/create/:name/:email/:password', function (req, res) {
     var {name, email, password} = req.params;
-
     bcryptjs
     .genSalt(saltRounds)
     .then(salt => bcryptjs.hash(password, salt))
     .then(hashedPassword => {
-
         // Else Create user
         dal.create(name, email, hashedPassword)
         .then((user) => {
             console.log(user);
-            res.send(user);
+            res.send({response: user});
         });
     })
     .catch(error => next(error));
@@ -62,7 +60,7 @@ app.get('/account/all', function(req, res) {
         });
 })
 
-// Specific Account
+// Find Specific Account
 app.get('/account/find/:email', function (req, res) {
     var mail = req.params.email;
     
@@ -73,6 +71,11 @@ app.get('/account/find/:email', function (req, res) {
         })
         
 })
+
+
+
+
+
 
 // Login Account
 app.get('/account/login/:email/:password', function (req, res) {
@@ -99,6 +102,15 @@ app.get('/account/login/:email/:password', function (req, res) {
 })
 
 
+
+
+
+
+
+
+
+
+
 // Update balance on specific account
 app.get('/account/update/:email/:newBalance', function (req, res) {
     var mail = req.params.email;
@@ -115,8 +127,8 @@ app.get('/userProfile', (req, res) => {
 })
 
 // Run application
-var port = process.env.PORT || 3000;
-//var port = 3000;
+//var port = process.env.PORT || 3000;
+var port = 3000;
 app.listen(port, () => {
     console.log(`Running on port:${port}`);
 });
