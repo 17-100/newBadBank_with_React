@@ -16,3 +16,4 @@ jobs:
           heroku_app_name: "newbadbank" #Must be unique in Heroku
           heroku_email: "sebisteri@outlook.com"
           usedocker: true
+          appdir: "public"
